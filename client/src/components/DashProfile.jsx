@@ -8,6 +8,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { updateStart,updateSuccess,updateFailure,
 deleteUserStart,deleteUserSuccess,deleteUserFailure,signOutSuccess } from '../redux/user/userSlice.js'
 import {HiOutlineExclamationCircle} from 'react-icons/hi'
+import { Link } from 'react-router-dom'
 
 const DashProfile = () => {
   const {currentUser,error} =  useSelector((state)=>state.user)
@@ -182,6 +183,15 @@ const handleSignOut = async ()=>{
          <Button type='submit' gradientDuoTone='purpleToBlue' outline>
           Update
          </Button>
+         {
+          currentUser.isAdmin && (
+            <Link to='/create-post'>
+            <Button type='button' gradientDuoTone='purpleToPink' className='w-full'>
+              Create a post
+            </Button>
+            </Link>
+          )
+         }
     </form>
     <div className='text-red-500 flex justify-between mt-5'>
       <span className='cursor-pointer'onClick={()=>setShowModal(true)}>Delete Account</span>
@@ -201,13 +211,13 @@ const handleSignOut = async ()=>{
         </Alert>
       )
     }
-    {
+    {/* {
       error && (
         <Alert color='failure' className='mt-5' >
           {error}
         </Alert>
       )
-    }
+    } */}
     <Modal show={showModal} onClose={()=>setShowModal(false)}
     popup size='md'>
       <Modal.Header />
